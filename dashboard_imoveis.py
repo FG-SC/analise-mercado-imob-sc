@@ -3662,7 +3662,20 @@ def main():
 
         # Mapa Choropleth com limites de bairros do IBGE (para qualquer cidade de SC)
         import pathlib
+        import os
         shapefile_path = pathlib.Path("SC_setores/SC_setores_CD2022.shp")
+
+        # Debug: mostrar status do shapefile
+        with st.expander("🔧 Debug: Status do Shapefile", expanded=False):
+            st.write(f"**GEOPANDAS_AVAILABLE:** {GEOPANDAS_AVAILABLE}")
+            st.write(f"**Caminho do shapefile:** {shapefile_path}")
+            st.write(f"**Shapefile existe:** {shapefile_path.exists()}")
+            st.write(f"**Diretorio atual:** {os.getcwd()}")
+            if shapefile_path.parent.exists():
+                st.write(f"**Arquivos em SC_setores/:** {list(shapefile_path.parent.glob('*'))}")
+            else:
+                st.write("**Pasta SC_setores/ NAO existe**")
+            st.write(f"**Imoveis com coordenadas:** {len(df_geo)}")
 
         if GEOPANDAS_AVAILABLE and shapefile_path.exists() and len(df_geo) >= 3:
             st.markdown("### 🗺️ Mapa Choropleth - Bairros (Shapefile SC)")
