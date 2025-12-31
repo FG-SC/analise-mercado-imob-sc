@@ -1851,14 +1851,14 @@ def show_search_home():
             buscar_clicked = st.button(
                 "🔍 Buscar Imoveis",
                 type="primary",
-                use_container_width=True,
+                width="stretch",
                 disabled=cidade_selecionada is None
             )
 
         with col_btn2:
             demo_clicked = st.button(
                 "📊 Ver Demo (Florianopolis)",
-                use_container_width=True
+                width="stretch"
             )
 
         st.markdown("</div>", unsafe_allow_html=True)
@@ -2887,7 +2887,7 @@ def main():
     st.sidebar.markdown("---")
 
     # Botao para nova busca
-    if st.sidebar.button("🔍 Nova Busca", type="primary", use_container_width=True):
+    if st.sidebar.button("🔍 Nova Busca", type="primary", width="stretch"):
         # Limpar estado e voltar para home
         if 'busca_resultados' in st.session_state:
             del st.session_state['busca_resultados']
@@ -3376,7 +3376,7 @@ def main():
                 plot_bgcolor='#0E1117'
             )
             fig_beeswarm.update_traces(marker=dict(size=5, opacity=0.5))
-            st.plotly_chart(fig_beeswarm, use_container_width=True)
+            st.plotly_chart(fig_beeswarm, width="stretch")
 
             # ----------------------------------------------------------------
             # 2. GRAFICOS DE DEPENDENCIA (Dependence Plots)
@@ -3431,10 +3431,10 @@ def main():
 
                 if idx % 2 == 0:
                     with col1:
-                        st.plotly_chart(fig_dep, use_container_width=True)
+                        st.plotly_chart(fig_dep, width="stretch")
                 else:
                     with col2:
-                        st.plotly_chart(fig_dep, use_container_width=True)
+                        st.plotly_chart(fig_dep, width="stretch")
 
             # ----------------------------------------------------------------
             # 3. WATERFALL PLOT - Exemplo de um imovel
@@ -3493,7 +3493,7 @@ def main():
                 plot_bgcolor='#0E1117'
             )
 
-            st.plotly_chart(fig_waterfall, use_container_width=True)
+            st.plotly_chart(fig_waterfall, width="stretch")
 
             # Mostrar detalhes do imovel exemplo
             with st.expander("📋 Detalhes do Imovel Exemplo"):
@@ -3502,7 +3502,7 @@ def main():
                     'Valor': waterfall_feat_values,
                     'Impacto no Preco': [f"R$ {v:+,.0f}" for v in waterfall_values]
                 })
-                st.dataframe(exemplo_df, use_container_width=True)
+                st.dataframe(exemplo_df, width="stretch")
 
             # ----------------------------------------------------------------
             # 4. FEATURE INTERACTION (Heatmap de interacoes)
@@ -3536,7 +3536,7 @@ def main():
                 paper_bgcolor='#0E1117',
                 plot_bgcolor='#0E1117'
             )
-            st.plotly_chart(fig_interaction, use_container_width=True)
+            st.plotly_chart(fig_interaction, width="stretch")
 
         else:
             st.warning("⚠️ SHAP nao disponivel. Verifique se a biblioteca shap esta instalada: `pip install shap`")
@@ -3662,20 +3662,7 @@ def main():
 
         # Mapa Choropleth com limites de bairros do IBGE (para qualquer cidade de SC)
         import pathlib
-        import os
         shapefile_path = pathlib.Path("SC_setores/SC_setores_CD2022.shp")
-
-        # Debug: mostrar status do shapefile
-        with st.expander("🔧 Debug: Status do Shapefile", expanded=False):
-            st.write(f"**GEOPANDAS_AVAILABLE:** {GEOPANDAS_AVAILABLE}")
-            st.write(f"**Caminho do shapefile:** {shapefile_path}")
-            st.write(f"**Shapefile existe:** {shapefile_path.exists()}")
-            st.write(f"**Diretorio atual:** {os.getcwd()}")
-            if shapefile_path.parent.exists():
-                st.write(f"**Arquivos em SC_setores/:** {list(shapefile_path.parent.glob('*'))}")
-            else:
-                st.write("**Pasta SC_setores/ NAO existe**")
-            st.write(f"**Imoveis com coordenadas:** {len(df_geo)}")
 
         if GEOPANDAS_AVAILABLE and shapefile_path.exists() and len(df_geo) >= 3:
             st.markdown("### 🗺️ Mapa Choropleth - Bairros (Shapefile SC)")
@@ -4172,7 +4159,7 @@ def main():
                 st.markdown("---")
 
                 # Botao de previsao
-                if st.button("🔮 Prever Preco", type="primary", use_container_width=True):
+                if st.button("🔮 Prever Preco", type="primary", width="stretch"):
                     # Montar features
                     input_data = {}
 
